@@ -1,7 +1,7 @@
 vaultwarden_directory: /opt/vaultwarden
-vaultwarden_version: 1.17.0
+vaultwarden_version: 1.23.0
 vaultwarden_webvault: true
-vaultwarden_webvault_version: 2.16.1
+vaultwarden_webvault_version: 2.23.0
 vaultwarden_build_backend: "{{ 'sqlite,mysql,postgresql' if vaultwarden_version is version('1.17.0', '>=') else 'sqlite' }}"
 vaultwarden_force_recompile: false
 vaultwarden_config:
