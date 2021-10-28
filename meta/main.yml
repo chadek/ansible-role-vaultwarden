@@ -1,5 +1,5 @@
 galaxy_info:
-  author: dmaes
+  author: jenstimmerman
   role_name: vaultwarden
   description: Builds, installs and configures Vaultwarden (https://github.com/dani-garcia/vaultwarden) (without Docker)
 
