@@ -1,6 +1,7 @@
 # Vaultwarden
 
-#### ⚠️**IMPORTANT**⚠️: This role was previously known as `dmaes.bitwardenrs` and `dmaes.vaultwarden`
+####  This role was previously known as `dmaes.bitwardenrs` and `dmaes.vaultwarden`
+
 Since the Bitwarden_RS project changed names to Vaultwarden, so did this role (see #12 for more info).
 Force this change, we changed everything from `bitwardenrs` to `vaultwarden` (variables used in the ansible code, but also directories, user, systemd service, etc.)
 When making the switch:
@@ -8,7 +9,7 @@ When making the switch:
 * Make a backup of both files and database for good measure
 * Update your ansible code to work with new role
 * Either point `vaultwarden_directory` to the old directory, or move stuff to the new default (`/opt/vaultwarden`). Also pay attention to `vaultwarden_datadir` if using a custom one.
-* The new vaultwarden user should get the same rights on the database as your previous bitwardenrs user 
+* The new vaultwarden user should get the same rights on the database as your previous bitwardenrs user
   * for postgres:
      * su - postgres
      * psql
@@ -27,7 +28,7 @@ Builds, installs and configures [Vaultwarden](https://github.com/dani-garcia/vau
 * Requirements for the [unarchive](https://docs.ansible.com/ansible/latest/modules/unarchive_module.html)-module
 * Requirements for the [package](https://docs.ansible.com/ansible/latest/modules/package_module.html)-module
 * wget or curl
-* jinja => v2.11 
+* jinja => v2.11
 * Systemd (optional)
 
 ## Role Variables
@@ -53,7 +54,7 @@ Builds, installs and configures [Vaultwarden](https://github.com/dani-garcia/vau
     vaultwarden_configure: yes
     vaultwarden_port: "443"
     vaultwarden_build_backend: "sqlite,postgresql"
-    admin_token: !vault | 
+    admin_token: !vault |
       $ANSIBLE_VAULT;1.1;AES256
       ...
     vaultwarden_config:
