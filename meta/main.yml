@@ -3,7 +3,7 @@ galaxy_info:
   role_name: vaultwarden
   description: Builds, installs and configures Vaultwarden (https://github.com/dani-garcia/vaultwarden) (without Docker)
 
-  license: MIT
+  license: GPLv3
 
   min_ansible_version: 2.9
 
