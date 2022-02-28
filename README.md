@@ -70,7 +70,7 @@ Builds, installs and configures [Vaultwarden](https://github.com/dani-garcia/vau
       SMTP_FROM: 'vaultwarden@example.com'
       SMTP_FROM_NAME: 'vaultwarden'
   roles:
-    - dmaes.vaultwarden
+    - jenstimmerman.vaultwarden
 ```
 
 ## License
