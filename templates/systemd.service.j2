@@ -12,6 +12,8 @@ EnvironmentFile={{ vaultwarden_directory }}/.env
 User = vaultwarden
 Group = vaultwarden
 ExecStart = {{ vaultwarden_directory }}/vaultwarden
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy = multi-user.target
