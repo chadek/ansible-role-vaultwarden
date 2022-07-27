@@ -4,4 +4,4 @@
   vars:
     vaultwarden_configure: false
   roles:
-  - jenstimmerman.vaultwarden
+    - jenstimmerman.vaultwarden
