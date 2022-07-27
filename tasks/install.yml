@@ -1,18 +1,18 @@
 - name: Ensure vaultwarden system group
-  group:
+  ansible.builtin.group:
     name: vaultwarden
-    system: yes
+    system: true
     state: present
 
 - name: Ensure vaultwarden system user
-  user:
+  ansible.builtin.user:
     name: vaultwarden
     group: vaultwarden
     home: "{{ vaultwarden_directory }}"
-    create_home: yes
-    move_home: yes
+    create_home: true
+    move_home: true
     password: '!'
-    system: yes
+    system: true
     shell: /bin/sh
     comment: Vaultwarden server,,,
     state: present
@@ -21,38 +21,39 @@
   ansible.builtin.file:
     path: "{{ vaultwarden_directory }}"
     state: directory
-    recurse: yes
+    recurse: true
     owner: vaultwarden
     group: vaultwarden
 
 - name: Install required build-packages
-  package:
+  ansible.builtin.package:
     name: "{{ _vaultwarden_build_packages }}"
     state: present
 
 - name: Get rustup installer
-  get_url:
+  ansible.builtin.get_url:
     url: https://sh.rustup.rs
     dest: ~vaultwarden/rustup.sh
     owner: vaultwarden
     group: vaultwarden
+    mode: u=rw,go=
 
 - name: Install rust nightly
-  command: su vaultwarden -c '/bin/sh ~vaultwarden/rustup.sh --no-modify-path --default-toolchain nightly -y'
+  ansible.builtin.command: su vaultwarden -c '/bin/sh ~vaultwarden/rustup.sh --no-modify-path --default-toolchain nightly -y'
   register: _vaultwarden_install_rust_nightly
   changed_when: "'nightly installed' in _vaultwarden_install_rust_nightly.stdout"
 
 - name: Download vaultwarden repo
-  unarchive:
+  ansible.builtin.unarchive:
     src: "https://github.com/dani-garcia/vaultwarden/archive/{{ vaultwarden_version }}.tar.gz"
     dest: "{{ vaultwarden_directory }}"
     creates: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_version }}"
-    remote_src: yes
+    remote_src: true
     owner: vaultwarden
     group: vaultwarden
 
 - name: Compile vaultwarden
-  command:
+  ansible.builtin.command:
     cmd: su vaultwarden -c '~vaultwarden/.cargo/bin/cargo build --features {{ vaultwarden_build_backend }} --release'
     chdir: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_version }}"
     creates: "{{ omit if vaultwarden_force_recompile else creates }}"
@@ -60,27 +61,28 @@
     creates: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_version }}/target/release/vaultwarden"
 
 - name: Copy vaultwarden executable
-  copy:
+  ansible.builtin.copy:
     src: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_version }}/target/release/vaultwarden"
     dest: "{{ vaultwarden_directory }}/vaultwarden"
-    remote_src: yes
+    remote_src: true
     mode: preserve
     owner: vaultwarden
     group: vaultwarden
   notify: Restart vaultwarden
 
 - name: Download patched vaultwarden webvault
-  unarchive:
+  ansible.builtin.unarchive:
     src: https://github.com/dani-garcia/bw_web_builds/releases/download/v{{ vaultwarden_webvault_version }}/bw_web_v{{ vaultwarden_webvault_version }}.tar.gz
     dest: "{{ vaultwarden_directory }}"
-    remote_src: yes
+    remote_src: true
     owner: vaultwarden
     group: vaultwarden
   when: vaultwarden_webvault|bool
 
 - name: Create datadir
-  file:
+  ansible.builtin.file:
     path: "{{ vaultwarden_datadir }}"
     state: directory
     owner: vaultwarden
     group: vaultwarden
+    mode: u=rw,go=
