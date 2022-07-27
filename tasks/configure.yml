@@ -1,5 +1,5 @@
 - name: Ensure configuration
-  template:
+  ansible.builtin.template:
     src: env.j2
     dest: "{{ vaultwarden_directory }}/.env"
     owner: vaultwarden
@@ -8,7 +8,7 @@
   notify: Restart vaultwarden
 
 - name: Copy encryption rsa key
-  copy:
+  ansible.builtin.copy:
     content: "{{ vaultwarden_encryption_key }}"
     dest: "{{ vaultwarden_datadir }}/rsa_key.pem"
     owner: vaultwarden
@@ -19,7 +19,7 @@
   when: vaultwarden_encryption_key|length > 0
 
 - name: Remove old keys in DER format
-  file:
+  ansible.builtin.file:
     path: "{{ vaultwarden_datadir }}/{{ item }}"
     state: absent
   loop:
@@ -28,8 +28,9 @@
   when: __vaultwarden_copy_encryption_rsa_key.changed
 
 - name: Setup systemd service
-  template:
+  ansible.builtin.template:
     src: systemd.service.j2
     dest: /lib/systemd/system/vaultwarden.service
+    mode: u=rw,go=r
   notify: Restart vaultwarden
   when: vaultwarden_systemd
