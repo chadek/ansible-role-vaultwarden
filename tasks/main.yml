@@ -1,5 +1,5 @@
 - name: Gather OS-specific variables
-  include_vars: "{{ item }}"
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version | lower }}.yml"
     - "{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
@@ -12,22 +12,22 @@
     - vaultwarden_run
 
 - include: install.yml
-  become: yes
+  become: true
   tags:
     - vaultwarden_install
 
 - include: configure.yml
-  become: yes
+  become: true
   tags:
     - vaultwarden_configure
 
 - name: Ensure vaultwarden started and enabled
-  become: yes
-  systemd:
+  become: true
+  ansible.builtin.systemd:
     name: vaultwarden
     state: started
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
   when: vaultwarden_systemd
   tags:
     - vaultwarden_run
