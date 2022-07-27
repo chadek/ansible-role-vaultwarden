@@ -69,6 +69,7 @@ Builds, installs and configures [Vaultwarden](https://github.com/dani-garcia/vau
       SMTP_HOST: 'mail.example.com'
       SMTP_FROM: 'vaultwarden@example.com'
       SMTP_FROM_NAME: 'vaultwarden'
+      ROCKET_ADDRESS: '0.0.0.0'
   roles:
     - jenstimmerman.vaultwarden
 ```
