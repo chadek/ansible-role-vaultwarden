@@ -2,6 +2,6 @@
 - hosts: localhost
   remote_user: root
   vars:
-   vaultwarden_configure: no
+    vaultwarden_configure: false
   roles:
-    - dmaes.vaultwarden
+  - jenstimmerman.vaultwarden
