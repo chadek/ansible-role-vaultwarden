@@ -11,12 +11,14 @@
     - vaultwarden_configure
     - vaultwarden_run
 
-- ansible.builtin.include_tasks: install.yml
+- name: Include the vaultwarden install playbook
+  ansible.builtin.include_tasks: install.yml
   become: true
   tags:
     - vaultwarden_install
 
-- ansible.builtin.include_tasks: configure.yml
+- name: Include the vaultwarden configure playbook
+  ansible.builtin.include_tasks: configure.yml
   become: true
   tags:
     - vaultwarden_configure
