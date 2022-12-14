@@ -35,9 +35,9 @@ Builds, installs and configures [Vaultwarden](https://github.com/dani-garcia/vau
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `vaultwarden_directory` | Where to install Vaultwarden | `/opt/vaultwarden` |
-| `vaultwarden_version` | Which version to install | `1.17.0` |
+| `vaultwarden_version` | Which version to install | `1.26.0` |
 | `vaultwarden_webvault` | Install the patched webvault | `true` |
-| `vaultwarden_webvault_version` | Version of the webvault to install | `2.16.1` |
+| `vaultwarden_webvault_version` | Version of the webvault to install | `2022.10.0` |
 | `vaultwarden_build_backend` | The database-type to compile for | *vaultwarden_version-specific(\*)* |
 | `vaultwarden_force_recompile` | Force recompile binary, (e.g. you switched backends on same server | `false` |
 | `vaultwarden_config` | Key-value environment variables for the Vaultwarden `.env` file | `{ DOMAIN: "https://{{ ansible_fqdn }}/" }` |
