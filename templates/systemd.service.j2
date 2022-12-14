@@ -2,7 +2,7 @@
 
 [Unit]
 Description =  VaultWarden (https://github.com/dani-garcia/vaultwarden)
-After = network.target network-online.target dbus.service
+After = network.target network-online.target dbus.service database.service
 Wants = network-online.target
 Requires = dbus.service
 
