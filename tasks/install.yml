@@ -45,9 +45,9 @@
 
 - name: Download vaultwarden repo
   ansible.builtin.unarchive:
-    src: "https://github.com/dani-garcia/vaultwarden/archive/{{ vaultwarden_version }}.tar.gz"
+    src: "https://github.com/dani-garcia/vaultwarden/archive/{{ vaultwarden_target_version }}.tar.gz"
     dest: "{{ vaultwarden_directory }}"
-    creates: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_version }}"
+    creates: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_target_version }}"
     remote_src: true
     owner: vaultwarden
     group: vaultwarden
@@ -55,14 +55,14 @@
 - name: Compile vaultwarden
   ansible.builtin.command:
     cmd: su vaultwarden -c '~vaultwarden/.cargo/bin/cargo build --features {{ vaultwarden_build_backend }} --release'
-    chdir: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_version }}"
+    chdir: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_target_version }}"
     creates: "{{ omit if vaultwarden_force_recompile else creates }}"
   vars:
-    creates: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_version }}/target/release/vaultwarden"
+    creates: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_target_version }}/target/release/vaultwarden"
 
 - name: Copy vaultwarden executable
   ansible.builtin.copy:
-    src: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_version }}/target/release/vaultwarden"
+    src: "{{ vaultwarden_directory }}/vaultwarden-{{ vaultwarden_target_version }}/target/release/vaultwarden"
     dest: "{{ vaultwarden_directory }}/vaultwarden"
     remote_src: true
     mode: preserve
@@ -72,7 +72,7 @@
 
 - name: Download patched vaultwarden webvault
   ansible.builtin.unarchive:
-    src: https://github.com/dani-garcia/bw_web_builds/releases/download/v{{ vaultwarden_webvault_version }}/bw_web_v{{ vaultwarden_webvault_version }}.tar.gz
+    src: https://github.com/dani-garcia/bw_web_builds/releases/download/{{ vaultwarden_webvault_target_version }}/bw_web_{{ vaultwarden_webvault_target_version }}.tar.gz
     dest: "{{ vaultwarden_directory }}"
     remote_src: true
     owner: vaultwarden
