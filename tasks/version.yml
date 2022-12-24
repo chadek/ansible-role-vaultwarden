@@ -25,7 +25,7 @@
       ansible.builtin.uri:
         url: https://raw.githubusercontent.com/dani-garcia/vaultwarden/{{ vaultwarden_remote_version }}/docker/Dockerfile.j2
         return_content: true
-      register: vaultwarden__webvault_remote_metadata
+      register: vaultwarden_webvault_remote_metadata
       when: not ansible_check_mode
 
 
