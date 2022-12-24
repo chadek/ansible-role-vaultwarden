@@ -3,7 +3,7 @@
   block:
     - name: "Get latest vaultwarden release metadata"
       ansible.builtin.uri:
-        url:  https://api.github.com/repos/dani-garcia/vaultwarden/releases/latest
+        url: https://api.github.com/repos/dani-garcia/vaultwarden/releases/latest
         return_content: true
       register: vaultwarden_remote_metadata
       when: not ansible_check_mode
@@ -12,7 +12,8 @@
       ansible.builtin.fail:
         msg: |
           "You are running this playbook in check mode:
-          Please set the Vaultwarden and webvault version with the variable 'vaultwarden_version' and 'vaultwarden_webvault_version', because the URI module cannot detect the latest version in this mode."
+            Please set the Vaultwarden and webvault version with the variable 'vaultwarden_version' and
+            'vaultwarden_webvault_version', because the URI module cannot detect the latest version in this mode."
       when: ansible_check_mode and (vaultwarden_version == 'latest')
 
     - name: "Set fact latest vaultwarden release"
@@ -27,11 +28,13 @@
       register: vaultwarden__webvault_remote_metadata
       when: not ansible_check_mode
 
+
     - name: "Set fact latest vaultwarden webvault release"
       ansible.builtin.set_fact:
-        vaultwarden_webvault_remote_version: "{{ vaultwarden_webvault_remote_metadata | regex_search('set vault_version ', multiline=true) | regex_replace(".*\"([^\"]+)\".*", "\\1")  }}"
+        vaultwarden_webvault_remote_version: |
+          "{{ vaultwarden_webvault_remote_metadata |
+          regex_search('set vault_version ', multiline=true) | regex_replace('.*"([^"]+)".*', '\1') }}"
       when: not ansible_check_mode
-
 
     - name: "Set vaultwarden version target (latest)"
       ansible.builtin.set_fact:
@@ -39,8 +42,8 @@
         vaultwarden_webvault_version_target: "{{ vaultwarden_webvault_remote_version }}"
       when: not ansible_check_mode
 
-- name: "Set vaultwarden version target {{ vaultwarden_version }},{{ vaultwarden_webvault_version}} "
+- name: "Set vaultwarden version target {{ vaultwarden_version }}"
   ansible.builtin.set_fact:
-    vaultwarden_version_target: "{{ vaultwarden_version}}"
-    vaultwarden_webvault_version_target: "{{ vaultwarden_webvault_version}}"
+    vaultwarden_version_target: "{{ vaultwarden_version }}"
+    vaultwarden_webvault_version_target: "{{ vaultwarden_webvault_version }}"
   when: vaultwarden_version != "latest"
