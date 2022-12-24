@@ -38,8 +38,8 @@
 
     - name: "Set vaultwarden version target (latest)"
       ansible.builtin.set_fact:
-        vaultwarden_version_target: "{{ vaultwarden_remote_version }}"
-        vaultwarden_webvault_version_target: "{{ vaultwarden_webvault_remote_version[1:] }}"
+        vaultwarden_target_version : "{{ vaultwarden_remote_version }}"
+        vaultwarden_webvault_target_version : "{{ vaultwarden_webvault_remote_version[1:] }}"
       when: not ansible_check_mode
 
 - name: "Set vaultwarden version target {{ vaultwarden_version }}"
