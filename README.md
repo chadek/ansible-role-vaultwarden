@@ -40,7 +40,7 @@ At least 1 GB of RAM (2GB recommended), the rustc compiler will compile bitwarde
 | `vaultwarden_directory` | Where to install Vaultwarden | `/opt/vaultwarden` |
 | `vaultwarden_version` | Which version to install | `latest` |
 | `vaultwarden_webvault` | Install the patched webvault | `true` |
-| `vaultwarden_webvault_version` | Version of the webvault to install (This will be ignored if vaultwarden version is set to latest, the corresponding latest webvault version will be installed)  This needs to include the 'v' prefix | `v2022.12.0` |
+| `vaultwarden_webvault_version` | Version of the webvault to install (This will be ignored if vaultwarden version is set to latest, the corresponding latest webvault version will be installed)  This is the version without the 'v' prefix | `2022.12.0` |
 | `vaultwarden_build_backend` | The database-type to compile for | *vaultwarden_version-specific(\*)* |
 | `vaultwarden_force_recompile` | Force recompile binary, (e.g. you switched backends on same server | `false` |
 | `vaultwarden_config` | Key-value environment variables for the Vaultwarden `.env` file | `{ DOMAIN: "https://{{ ansible_fqdn }}/" }` |

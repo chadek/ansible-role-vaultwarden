@@ -73,9 +73,9 @@
 - name: Download patched vaultwarden webvault
   ansible.builtin.unarchive:
     src: >-
-      https://github.com/dani-garcia/bw_web_builds/releases/download/
+      https://github.com/dani-garcia/bw_web_builds/releases/download/v
       {{ vaultwarden_webvault_target_version }}
-      /bw_web_{{ vaultwarden_webvault_target_version }}.tar.gz
+      /bw_web_v{{ vaultwarden_webvault_target_version }}.tar.gz
     dest: "{{ vaultwarden_directory }}"
     remote_src: true
     owner: vaultwarden
