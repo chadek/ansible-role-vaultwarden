@@ -2,7 +2,7 @@ vaultwarden_directory: /opt/vaultwarden
 vaultwarden_version: latest
 vaultwarden_webvault: true
 vaultwarden_webvault_version: v2022.12.0
-vaultwarden_build_backend: "{{ 'sqlite,mysql,postgresql' if vaultwarden_version is version('1.17.0', '>=') else 'sqlite' }}"
+vaultwarden_build_backend: "{{ 'sqlite,mysql,postgresql' if vaultwarden_version is 'latest' or vaultwarden_version is version('1.17.0', '>=') else 'sqlite' }}"
 vaultwarden_force_recompile: false
 vaultwarden_config:
   DOMAIN: https://{{ ansible_fqdn }}/"
