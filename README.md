@@ -18,7 +18,7 @@ When making the switch:
 * Cleanup old user, service (and possibly (data)directory)
 
 
-[![Build Status](https://travis-ci.com/dmaes/ansible-role-vaultwarden.svg?branch=master)](https://travis-ci.com/dmaes/ansible-role-vaultwarden)
+[![Build Status](https://travis-ci.com/JensTimmerman/ansible-role-vaultwarden.svg?branch=master)](https://travis-ci.com/JensTimmerman/ansible-role-vaultwarden)
 
 Builds, installs and configures [Vaultwarden](https://github.com/dani-garcia/vaultwarden) (without Docker).
 
@@ -31,13 +31,16 @@ Builds, installs and configures [Vaultwarden](https://github.com/dani-garcia/vau
 * jinja => v2.11
 * Systemd (optional)
 
+At least 1 GB of RAM (2GB recommended), the rustc compiler will compile bitwarden on your host which takes a lot of ram. Possible symptoms of not enought RAM are:
+`Memory cgroup out of memory: Killed process 709453 (rustc) total-vm:2668356kB, anon-rss:955680kB, file-rss:0kB, shmem-rss:0kB, UID:996 pgtables:4516kB oom_score_adj:0`
+
 ## Role Variables
 | Variable | Description | Default value |
 | --- | --- | --- |
 | `vaultwarden_directory` | Where to install Vaultwarden | `/opt/vaultwarden` |
-| `vaultwarden_version` | Which version to install | `1.27.0` |
+| `vaultwarden_version` | Which version to install | `latest` |
 | `vaultwarden_webvault` | Install the patched webvault | `true` |
-| `vaultwarden_webvault_version` | Version of the webvault to install | `2022.12.0` |
+| `vaultwarden_webvault_version` | Version of the webvault to install (This will be ignored if vaultwarden version is set to latest, the corresponding latest webvault version will be installed)  This is the version without the 'v' prefix | `2022.12.0` |
 | `vaultwarden_build_backend` | The database-type to compile for | *vaultwarden_version-specific(\*)* |
 | `vaultwarden_force_recompile` | Force recompile binary, (e.g. you switched backends on same server | `false` |
 | `vaultwarden_config` | Key-value environment variables for the Vaultwarden `.env` file | `{ DOMAIN: "https://{{ ansible_fqdn }}/" }` |

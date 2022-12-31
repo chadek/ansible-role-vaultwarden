@@ -11,6 +11,12 @@
     - vaultwarden_configure
     - vaultwarden_run
 
+- name: Include the vaultwarden version playbook
+  ansible.builtin.include_tasks: version.yml
+  tags:
+    - vaultwarden_install
+
+
 - name: Include the vaultwarden install playbook
   ansible.builtin.include_tasks: install.yml
   tags:
