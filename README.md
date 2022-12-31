@@ -18,7 +18,7 @@ When making the switch:
 * Cleanup old user, service (and possibly (data)directory)
 
 
-[![Build Status](https://travis-ci.com/JensTimmerman/ansible-role-vaultwarden.svg?branch=master)](https://travis-ci.com/JensTimmerman/ansible-role-vaultwarden)
+[![Build Status](https://app.travis-ci.com/JensTimmerman/ansible-role-vaultwarden.svg?branch=main)](https://app.travis-ci.com/JensTimmerman/ansible-role-vaultwarden)
 
 Builds, installs and configures [Vaultwarden](https://github.com/dani-garcia/vaultwarden) (without Docker).
 
