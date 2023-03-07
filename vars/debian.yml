@@ -2,12 +2,17 @@ __vaultwarden_build_packages:
   - build-essential
   - libssl-dev
   - pkg-config
+  - curl
 __vaultwarden_backend_build_packages:
-  # sqlite:
-  - sqlite3
-  # postgresql:
-  - libpq-dev
-  # mysql:
-  - libmariadb-dev-compat
-  - libmariadb-dev
-_vaultwarden_build_packages: "{{ [__vaultwarden_build_packages, __vaultwarden_backend_build_packages] | flatten(1) }}"
+  {
+    sqlite: [
+      sqlite3
+    ],
+    postgresql: [
+      libpq-dev
+    ],
+    mysql: [
+      libmariadb-dev-compat,
+      libmariadb-dev
+    ]
+  }

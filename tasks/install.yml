@@ -25,9 +25,16 @@
     owner: vaultwarden
     group: vaultwarden
 
+- name: Install required backend build-packages
+  ansible.builtin.package:
+    name: "{{ __vaultwarden_backend_build_packages[item] }}"
+    state: present
+  loop:
+    "{{ vaultwarden_build_backend | split(',') }}"
+
 - name: Install required build-packages
   ansible.builtin.package:
-    name: "{{ _vaultwarden_build_packages }}"
+    name: "{{ __vaultwarden_build_packages }}"
     state: present
 
 - name: Get rustup installer
