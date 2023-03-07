@@ -2,7 +2,7 @@
 
 [Unit]
 Description =  VaultWarden (https://github.com/dani-garcia/vaultwarden)
-After = network.target
+After = network.target postgresql.service mysql.service
 
 [Service]
 WorkingDirectory = {{ vaultwarden_directory }}
