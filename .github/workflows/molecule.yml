@@ -4,10 +4,7 @@ on: [push, pull_request]
 
 jobs:
   molecule:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, centos-latest]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
