@@ -14,7 +14,7 @@ __vaultwarden_build_packages:
        libpq-devel
      ],
      mysql: [
-       mariadb-devel
+       mariadb-devel,
        mysql-libs
      ]
    }
