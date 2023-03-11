@@ -3,7 +3,18 @@ _vaultwarden_build_packages:
   - openssl-devel
   - pkg-config
   - tar
-  - libpq-devel
-  - mariadb-devel
-  - mysql-libs
-  - sqlite-devel
+  - curl
+  
+ __vaultwarden_backend_build_packages:
+   {
+     sqlite: [
+       sqlite-devel
+     ],
+     postgresql: [
+       libpq-devel
+     ],
+     mysql: [
+       mariadb-devel
+       mysql-libs
+     ]
+   }
