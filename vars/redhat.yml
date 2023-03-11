@@ -4,8 +4,8 @@ __vaultwarden_build_packages:
   - pkg-config
   - tar
   - curl
-  
- __vaultwarden_backend_build_packages:
+
+__vaultwarden_backend_build_packages:
    {
      sqlite: [
        sqlite-devel
