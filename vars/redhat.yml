@@ -1,4 +1,4 @@
-_vaultwarden_build_packages:
+__vaultwarden_build_packages:
   - gcc
   - openssl-devel
   - pkg-config
