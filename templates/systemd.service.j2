@@ -2,16 +2,24 @@
 
 [Unit]
 Description =  VaultWarden (https://github.com/dani-garcia/vaultwarden)
-After = network.target network-online.target dbus.service postgresql.service mysql.service
-Wants = network-online.target
-Requires = dbus.service
+After = network.target postgresql.service mysql.service
 
 [Service]
-WorkingDirectory = {{ vaultwarden_directory }}
-EnvironmentFile={{ vaultwarden_directory }}/.env
 User = vaultwarden
 Group = vaultwarden
 ExecStart = {{ vaultwarden_directory }}/vaultwarden
+# Set reasonable connection and process limits
+LimitNOFILE=1048576
+LimitNPROC=64
+# Isolate vaultwarden from the rest of the system
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+WorkingDirectory = {{ vaultwarden_directory }}
+EnvironmentFile={{ vaultwarden_directory }}/.env
+ReadWriteDirectories={{ vaultwarden_directory }}
+MemoryDenyWriteExecute=true
 
 [Install]
 WantedBy = multi-user.target
