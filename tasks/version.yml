@@ -31,8 +31,13 @@
 
     - name: "Set fact latest vaultwarden webvault release"
       ansible.builtin.set_fact:
-        vaultwarden_webvault_remote_version: "{{ vaultwarden_webvault_remote_metadata |
-          regex_search('vault_version [^%]*', multiline=true) | regex_replace('.*\"([^\"]+)\".*', '\\1') }}"
+        vaultwarden_webvault_remote_version: "{{ vaultwarden_webvault_remote_metadata.content |
+        regex_search('vault_version: [^\n]*') | regex_replace('.*\"([^\"]+)\".*', '\\1') }}"
+      when: not ansible_check_mode
+
+    - name: "print latest vaultwarden webvault release"
+      ansible.builtin.debug:
+        msg: "{{ vaultwarden_webvault_remote_version }}"
       when: not ansible_check_mode
 
     - name: "Set vaultwarden version target (latest)"
